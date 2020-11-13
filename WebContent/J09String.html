@@ -72,18 +72,63 @@
 
 
 
+        // 구분자로 문자열을 분리해서 배열로 반환하는 함수
+        document.write("<h2>split() 함수</h2>");
+        document.write("<h3>구분자가 있는 경우</h3>");
+        var tel = "010-1234-5678";
+        var telArr = tel.split("-");
+
+        // 크기가 3인 배열로 반환
+        for (var i=0; i<telArr.length; i++){
+            document.write("telArr[" + i + "]=" + telArr[i] + "<br>");
+        }
+
+        // 특정 문자열의 인덱스를 반환하는 함수
+        document.write("<h2>indexOf()함수</h2>");
+        document.write(str2.indexOf("자바")!=-1 ? "자바 포함됨" : "자바 포함안됨");
+
+        document.write("<h2>lastIndexOf()함수</h2>");
+        document.write(str1.lastIndexOf("a")!=-1 ?
+                 "a 포함됨<br>" : "a 포함안됨<br>");
+        document.write(str1+"에서 a의 마지막 위치는?"
+                 + str1.lastIndexOf("a") + "<br>");
+
+
         /*
         연습문제] 아래 이메일 주소에서 @와 .사이에 있는값만
         추출하여 출력하는 프로그램을 작성하시오.
         xxx@yyy.co.kr 이라면 yyy만 출력되어야 한다.
         */
+        
+        // [방법1]
         var emailArray = ["kim@naver.com", "sung@hanmail.net", "park@ikosmo.co.kr"];
         var getDomainStr = function(emailArr){
-            //이부분을 구현하시오.   
+            for (var i=0; i<emailArr.length; i++){
+                var locationAt = emailArr[i].indexOf("@");
+                var locationDot = emailArr[i].indexOf(".");
+                // 종료 인덱스까지가 아니라 그 앞까지 잘라내므로 -1은 필요없음
+                var result = emailArr[i].substring(locationAt+1, locationDot);
+                document.write("결과1(indexOf)=" + result + "<br>");                
+            }
         }
         document.write("<h2>연습문제>도메인 추출하기</h2>");
-        getDomainStr(emailArray);    
+        getDomainStr(emailArray);   
 
+
+        // [방법2]
+        var emailArray = ["kim@naver.com", "sung@hanmail.net", "park@ikosmo.co.kr"];
+        var getDomainStr = function(emailArr){
+            for (var i=0; i<emailArr.length; i++){
+                // 이메일을 @을 기준으로 1차 split한다
+                var firstArr = emailArr[i].split("@");
+                // 위 결과의 1번 인덱스 값을 .을 기준으로 2차 split한다
+                var secondArr = firstArr[1].split(".");
+                // 두번째 결과의 0번 인덱스 값을 출력한다.
+                document.write("결과2(split)=" + secondArr[0]+ "<br>");
+            }
+        }
+        document.write("<h2>연습문제>도메인 추출하기</h2>");
+        getDomainStr(emailArray);   
     </script>
 </head>
 <body>
