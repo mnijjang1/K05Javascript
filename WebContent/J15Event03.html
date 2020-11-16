@@ -5,15 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>J15Event03.html</title>
     <script>
-        // 이벤트활용4 : window 객체의 addEventListener를 이용한다.
+        // 이벤트활용3 : window 객체의 addEventListener를 이용한다.
         window.addEventListener("load", function(){
             alert("Load 이벤트활용3. 문서 로딩 완료됨..");
+
+            // 방법1 : load이벤트는 제일 마지막에 자동으로 호출되므로
+            //      제일 위에 있다하더라도 실질적으로 mydiv선언 이후에 호출된다.
+            var mydiv = document.getElementById("mydiv").innerHTML;
+            alert("mydiv의 내용 = " + mydiv);
         });
+
+        /*
+        에러발생
+        var mydiv = document.getElementById("mydiv").innerHTML;
+            alert("mydiv의 내용 = " + mydiv);
+        
+        => JS는 라인1부터 순차적으로 아래로 읽어내려가는 인터프리터 방식이므로
+            DOM이 등장하기 전에 해당 내용을 가져오면 에러가 발생하게 된다. 
+            따라서 HTML문서의 로드가 끝난 이후 읽어올 수 있도록 함수로
+            정의하거나, 아예 문서 하단에 script를 기술해야한다.
+        */
+
+        // 방법2 : 함수로 만들고 선언 후에 호출한다.
+        function myFunc(){
+            var mydiv = document.getElementById("mydiv").innerHTML;
+            alert("mydiv의 내용 = " + mydiv);
+        }
+
     </script>
 </head>
 <body>
     <script>
         alert("문서의 마지막 부분");
+    </script>
+
+    <div id="mydiv" onclick="myFunc();" style="cursor:pointer;">
+        여기는 div영역입니다.
+    </div>
+
+    // 방법3 : mydiv가 선언된 이후로 옮긴다.
+    <script>
+        var mydiv = document.getElementById("mydiv").innerHTML;
+        alert("mydiv의 내용 = " + mydiv);
     </script>
 </body>
 </html>
